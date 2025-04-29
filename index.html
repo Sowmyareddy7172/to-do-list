@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+           background-image: url("https://img.freepik.com/free-photo/happy-woman-pointing-copy-space-whiteboard_329181-3908.jpg?t=st=1745905203~exp=1745908803~hmac=f05bb4d21d8f3bf999d1b2956727602e2a71b83138d78fd41ff89f46d6067a94&w=1380");
+           margin: 0 auto;
+          
+          
+        }
+
+        .remove-btn {
+            margin-left: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #inp_text {
+            width: 400px;
+            height: 30px;
+        }
+
+        #add_button {
+            width: 100px;
+            height: 35px;
+            background-color: rgb(11, 234, 97);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 2px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+
+        table {
+            width: 50%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+            background-color: rgb(233, 197, 219);
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h2 style="margin-left: 350px;">To-Do List</h2>
+        
+
+        <div class="content" style="margin-left: 350px;">
+            <div>
+                <input type="text" placeholder="Type here...." id="inp_text" />
+                <button id="add_button" onclick="result()">Add</button>
+            </div>
+
+            <table id="data">
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="table_body">
+
+                </tbody>
+            </table>
+        </div>
+    </center>
+
+    <script>
+        let tasks = [];
+
+        function result() {
+            var values = document.getElementById("inp_text").value.trim();
+            document.getElementById("inp_text").value = "";
+
+            if (values === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            if (tasks.includes(values.toLowerCase())) {
+                alert("Task already exists!");
+                return;
+            }
+
+            tasks.push(values.toLowerCase());
+
+            var tr = document.createElement("tr");
+
+            var td1 = document.createElement("td");
+            td1.textContent = values;
+
+            var td2 = document.createElement("td");
+            var x = document.createElement("button");
+            x.className = "remove-btn";
+            x.textContent = "Remove";
+            x.onclick = function () {
+                tr.remove();
+                tasks = tasks.filter(task => task !== values.toLowerCase());
+            };
+
+            td2.appendChild(x);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+
+            document.getElementById("table_body").appendChild(tr);
+        }
+    </script>
+
+</body>
+
+</html>
